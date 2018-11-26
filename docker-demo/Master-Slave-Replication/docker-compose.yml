@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  demo-db:
+  master-slave:
     driver: 'bridge'
 
 volumes:
@@ -31,7 +31,7 @@ services:
       ports:
         - "${MASTER_PORT}:3306"
       networks:
-        - demo-db
+        - master-slave
 
     slave:
       build:
@@ -50,7 +50,7 @@ services:
       ports:
         - "${SLAVE_PORT}:3306"
       networks:
-        - demo-db
+        - master-slave
 
     adminer:
       build:
@@ -62,4 +62,4 @@ services:
       ports:
         - "${ADMINER_PORT}:8080"
       networks:
-        - demo-db
+        - master-slave
