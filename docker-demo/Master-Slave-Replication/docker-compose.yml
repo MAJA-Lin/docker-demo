@@ -32,6 +32,7 @@ services:
         - "${MASTER_PORT}:3306"
       networks:
         - master-slave
+      command: ['--server-id=1']
 
     slave:
       build:
@@ -51,6 +52,7 @@ services:
         - "${SLAVE_PORT}:3306"
       networks:
         - master-slave
+      command: ['--server-id=2']
 
     adminer:
       build:
