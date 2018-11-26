@@ -1,0 +1,8 @@
+STOP SLAVE;
+
+CHANGE MASTER TO
+  MASTER_HOST='master',
+  MASTER_USER='replication',
+  MASTER_PASSWORD='repliword';
+
+START SLAVE;
