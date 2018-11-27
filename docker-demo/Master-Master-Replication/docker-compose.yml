@@ -1,0 +1,73 @@
+version: '3'
+
+networks:
+  master-master:
+    driver: 'bridge'
+
+volumes:
+  master:
+    driver: 'local'
+  slave:
+    driver: 'local'
+  adminer:
+    driver: 'local'
+
+services:
+
+    master:
+      build:
+        context: ./master
+        args:
+          - MYSQL_VERSION=${MASTER_VERSION}
+      environment:
+        - MYSQL_DATABASE=${MASTER_DATABASE}
+        - MYSQL_USER=${MASTER_USER}
+        - MYSQL_PASSWORD=${MASTER_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MASTER_ROOT_PASSWORD}
+        - TZ=${TIMEZONE}
+        - MYSQL_TEMP_ADMIN_USER=${MYSQL_TEMP_ADMIN_USER}
+      volumes:
+        - ${MASTER_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+        - ./logs/master:/var/log/mysql/
+      networks:
+        - master-master
+      command: [
+        '--server-id=1',
+        '--auto_increment_increment=2',
+        '--auto_increment_offset=1'
+      ]
+
+    slave:
+      build:
+        context: ./slave
+        args:
+          - MYSQL_VERSION=${SLAVE_VERSION}
+      environment:
+        - MYSQL_DATABASE=${SLAVE_DATABASE}
+        - MYSQL_USER=${SLAVE_USER}
+        - MYSQL_PASSWORD=${SLAVE_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${SLAVE_ROOT_PASSWORD}
+        - TZ=${TIMEZONE}
+        - MYSQL_TEMP_ADMIN_USER=${MYSQL_TEMP_ADMIN_USER}
+      volumes:
+        - ${SLAVE_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+        - ./logs/slave:/var/log/mysql/
+      networks:
+        - master-master
+      command: [
+        '--server-id=2',
+        '--auto_increment_increment=2',
+        '--auto_increment_offset=2'
+      ]
+
+    adminer:
+      build:
+        context: ./adminer
+        args:
+          - ADMINER_VERSION=${ADMINER_VERSION}
+      environment:
+        - ADMINER_DESIGN=${ADMINER_DESIGN}
+      ports:
+        - "${ADMINER_PORT}:8080"
+      networks:
+        - master-master
