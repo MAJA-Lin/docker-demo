@@ -11,6 +11,8 @@ volumes:
     driver: 'local'
   adminer:
     driver: 'local'
+  node:
+    driver: 'local'
 
 services:
 
@@ -59,6 +61,16 @@ services:
         '--auto_increment_increment=2',
         '--auto_increment_offset=2'
       ]
+
+    node:
+      build:
+        context: ./nodejs
+        args:
+          - NODE_VERSION=${NODE_VERSION}
+      volumes:
+        - ./app:/var/www/app/
+      networks:
+        - master-master
 
     adminer:
       build:

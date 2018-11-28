@@ -1,0 +1,23 @@
+{
+    "name": "master-master",
+    "version": "1.0.0",
+    "description": "Simple CRUD on master-master database structure",
+    "main": "index.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "CRUD",
+        "MySQL",
+        "master-master"
+    ],
+    "author": "Scott Lin",
+    "license": "MIT",
+    "dependencies": {
+        "faker": "^4.1.0",
+        "mysql": "^2.16.0"
+    }
+}
