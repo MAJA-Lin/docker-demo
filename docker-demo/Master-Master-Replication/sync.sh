@@ -9,7 +9,7 @@ echo "Executing sql scripts..."
 
 docker exec "$MASTER_2_ID" mysql --login-path=temp_admin -e "STOP SLAVE;
 CHANGE MASTER TO
-  MASTER_HOST='master',
+  MASTER_HOST='master-1',
   MASTER_USER='replica1',
   MASTER_PASSWORD='repliword';
 START SLAVE;
@@ -17,7 +17,7 @@ START SLAVE;
 
 docker exec "$MASTER_1_ID" mysql --login-path=temp_admin -e "STOP SLAVE;
 CHANGE MASTER TO
-  MASTER_HOST='slave',
+  MASTER_HOST='master-2',
   MASTER_USER='replica2',
   MASTER_PASSWORD='repliword';
 START SLAVE;
