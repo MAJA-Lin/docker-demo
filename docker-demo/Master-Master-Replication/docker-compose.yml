@@ -5,9 +5,9 @@ networks:
     driver: 'bridge'
 
 volumes:
-  master-1:
+  master-alpha:
     driver: 'local'
-  master-2:
+  master-beta:
     driver: 'local'
   adminer:
     driver: 'local'
@@ -16,21 +16,20 @@ volumes:
 
 services:
 
-    master-1:
+    master-alpha:
       build:
-        context: ./master1
+        context: ./master-alpha
         args:
-          - MYSQL_VERSION=${MASTER_1_VERSION}
+          - MYSQL_VERSION=${MYSQL_VERSION}
       environment:
-        - MYSQL_DATABASE=${MASTER_1_DATABASE}
-        - MYSQL_USER=${MASTER_1_USER}
-        - MYSQL_PASSWORD=${MASTER_1_PASSWORD}
-        - MYSQL_ROOT_PASSWORD=${MASTER_1_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - TZ=${TIMEZONE}
-        - MYSQL_TEMP_ADMIN_USER=${MYSQL_TEMP_ADMIN_USER}
       volumes:
-        - ${MASTER_1_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
-        - ./logs/master1:/var/log/mysql/
+        - ${MASTER_ALPHA_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+        - ./logs/master-alpha:/var/log/mysql/
       networks:
         - master-master
       command: [
@@ -39,21 +38,20 @@ services:
         '--auto_increment_offset=1'
       ]
 
-    master-2:
+    master-beta:
       build:
-        context: ./master2
+        context: ./master-beta
         args:
-          - MYSQL_VERSION=${MASTER_2_VERSION}
+          - MYSQL_VERSION=${MYSQL_VERSION}
       environment:
-        - MYSQL_DATABASE=${MASTER_2_DATABASE}
-        - MYSQL_USER=${MASTER_2_USER}
-        - MYSQL_PASSWORD=${MASTER_2_PASSWORD}
-        - MYSQL_ROOT_PASSWORD=${MASTER_2_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - TZ=${TIMEZONE}
-        - MYSQL_TEMP_ADMIN_USER=${MYSQL_TEMP_ADMIN_USER}
       volumes:
-        - ${MASTER_2_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
-        - ./logs/master2:/var/log/mysql/
+        - ${MASTER_BETA_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+        - ./logs/master-beta:/var/log/mysql/
       networks:
         - master-master
       command: [

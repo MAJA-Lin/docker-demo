@@ -1,4 +1,0 @@
-USE mysql;
-CREATE USER 'admin'@'%' IDENTIFIED BY 'temp';
-GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%';
-FLUSH PRIVILEGES;

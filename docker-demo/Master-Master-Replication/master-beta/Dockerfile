@@ -17,9 +17,9 @@ COPY my.cnf /etc/mysql/conf.d/my.cnf
 RUN apt-get update && apt-get --no-install-recommends --no-install-suggests -y install expect
 COPY mysql_login_config.sh /root/mysql_login_config.sh
 
-ARG MASTER_ROOT_PASSWORD=root
-ENV MASTER_ROOT_PASSWORD ${MASTER_ROOT_PASSWORD}
-RUN cd /root && ./mysql_login_config.sh root $MASTER_ROOT_PASSWORD
+ARG MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_ROOT_PASSWORD ${MYSQL_ROOT_PASSWORD}
+RUN cd /root && ./mysql_login_config.sh root $MYSQL_ROOT_PASSWORD
 
 CMD ["mysqld"]
 
