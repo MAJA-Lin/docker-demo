@@ -1,8 +1,8 @@
 let DatabaseConnection = require('./lib/DatabaseConnection');
 let faker = require('faker');
 
-const firstMasterHost = 'master-1';
-const secondMasterHost = 'master-2';
+const firstMasterHost = 'master-alpha';
+const secondMasterHost = 'master-beta';
 
 let firstMaster = new DatabaseConnection(firstMasterHost);
 let secondMaster = new DatabaseConnection(secondMasterHost);
