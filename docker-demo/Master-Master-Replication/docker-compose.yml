@@ -30,6 +30,7 @@ services:
       volumes:
         - ${MASTER_ALPHA_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
         - ./logs/master-alpha:/var/log/mysql/
+        - ./mysql_login_config.sh:/root/mysql_login_config.sh
       networks:
         - master-master
       command: [
@@ -52,6 +53,7 @@ services:
       volumes:
         - ${MASTER_BETA_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
         - ./logs/master-beta:/var/log/mysql/
+        - ./mysql_login_config.sh:/root/mysql_login_config.sh
       networks:
         - master-master
       command: [
