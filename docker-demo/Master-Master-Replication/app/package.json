@@ -7,6 +7,7 @@
         "lib": "lib"
     },
     "scripts": {
+        "start": "npm install && node /var/www/app/script.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
