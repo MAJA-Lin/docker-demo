@@ -23,8 +23,6 @@ services:
           - MYSQL_VERSION=${MASTER_VERSION}
       environment:
         - MYSQL_DATABASE=${MASTER_DATABASE}
-        - MYSQL_USER=${MASTER_USER}
-        - MYSQL_PASSWORD=${MASTER_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${MASTER_ROOT_PASSWORD}
         - TZ=${TIMEZONE}
       volumes:
@@ -41,8 +39,6 @@ services:
           - MYSQL_VERSION=${SLAVE_VERSION}
       environment:
         - MYSQL_DATABASE=${SLAVE_DATABASE}
-        - MYSQL_USER=${SLAVE_USER}
-        - MYSQL_PASSWORD=${SLAVE_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${SLAVE_ROOT_PASSWORD}
         - TZ=${TIMEZONE}
       volumes:
@@ -59,8 +55,6 @@ services:
           - MYSQL_VERSION=${SLAVE_VERSION}
       environment:
         - MYSQL_DATABASE=${SLAVE_DATABASE}
-        - MYSQL_USER=${SLAVE_USER}
-        - MYSQL_PASSWORD=${SLAVE_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${SLAVE_ROOT_PASSWORD}
         - TZ=${TIMEZONE}
       volumes:
